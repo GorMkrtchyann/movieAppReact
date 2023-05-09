@@ -10,15 +10,12 @@ export const MoviesDetails = ({ moviesList, func }) => {
 
     const commentSubmit = (e) => {
         e.preventDefault()
-        comment ?
-            moviesList?.map(el => {
-                if (el.id === +params.id){
-                    el.comment = [...el.comment, comment]
-                }
-                return  func([...moviesList])
-            })
-            :
-            alert("Enter comment")
+        moviesList?.map(el => {
+            if (el.id === +params.id){
+                el.comment = [...el.comment, comment]
+            }
+            return  func([...moviesList])
+        })
     }
 
     return(
@@ -47,6 +44,7 @@ export const MoviesDetails = ({ moviesList, func }) => {
                         type="text"
                         placeholder={"Enter your comment..."}
                         onChange={(e) => {setComment(e.target.value)}}
+                        required
                     />
                     <button>Add</button>
                 </form>

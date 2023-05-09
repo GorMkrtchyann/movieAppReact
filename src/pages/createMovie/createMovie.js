@@ -4,7 +4,7 @@ import {useNavigate} from "react-router";
 
 
 export const CreateMovie = ({ moviesList, func }) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit} = useForm();
     const navigate = useNavigate()
 
     const onSubmit = (data) => {
