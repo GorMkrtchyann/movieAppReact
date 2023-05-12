@@ -1,9 +1,11 @@
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import PropTypes from "prop-types";
+import {useDispatch, useSelector} from "react-redux";
 
 export const Movies = ({moviesList}) => {
     const navigate = useNavigate()
+    const movieList = useSelector((state) => state.moviesReducer.moviesList)
 
     return(
         <div className={"movie container"}>
@@ -11,7 +13,7 @@ export const Movies = ({moviesList}) => {
             <Link to={"/create-movie"} className={"create"}>Create Movie</Link>
             <div className={"movie__section"}>
                 {
-                    moviesList?.map(el => {
+                    movieList?.map(el => {
                         return(
                             <div
                                 key={el.id}

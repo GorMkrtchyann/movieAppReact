@@ -1,14 +1,18 @@
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import {useNavigate} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+import {addMovie} from "../../store/movies/movies.action";
 
 
-export const CreateMovie = ({ moviesList, func }) => {
+export const CreateMovie = () => {
     const { register, handleSubmit} = useForm();
     const navigate = useNavigate()
+    const movieList = useSelector((state) => state.moviesReducer.moviesList)
+    const dispatch = useDispatch()
 
     const onSubmit = (data) => {
-        func([...moviesList, {
+        dispatch(addMovie([...movieList, {
             id: Math.floor(Math.random() * 1000),
             name: data.name,
             img: data.img,
@@ -16,7 +20,7 @@ export const CreateMovie = ({ moviesList, func }) => {
             genre: data.genre,
             comment: [],
             about: data.about
-        }])
+        }]))
         navigate("/movies")
     }
 

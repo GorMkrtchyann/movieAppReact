@@ -1,20 +1,23 @@
 import PropTypes from "prop-types";
 import {useParams} from "react-router";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {addComment} from "../../store/movies/movies.action";
 
-export const MoviesDetails = ({ moviesList, func }) => {
+export const MoviesDetails = () => {
     const params = useParams()
     const [comment, setComment] = useState()
-
-    const findMovies = moviesList.find(el => el.id === +params.id)
+    const movieList = useSelector((state) => state.moviesReducer.moviesList)
+    const findMovies = movieList.find(el => el.id === +params.id)
+    const dispatch = useDispatch()
 
     const commentSubmit = (e) => {
         e.preventDefault()
-        moviesList?.map(el => {
+        movieList?.map(el => {
             if (el.id === +params.id){
                 el.comment = [...el.comment, comment]
             }
-            return  func([...moviesList])
+            return dispatch(addComment([...movieList]))
         })
     }
 
@@ -56,9 +59,4 @@ export const MoviesDetails = ({ moviesList, func }) => {
             </div>
         </div>
     )
-}
-
-MoviesDetails.propTypes = {
-    moviesList: PropTypes.array,
-    func: PropTypes.func
 }
