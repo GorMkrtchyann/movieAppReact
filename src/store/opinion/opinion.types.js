@@ -1,0 +1,1 @@
+export const ADD_OPINION = "ADD_OPINION";

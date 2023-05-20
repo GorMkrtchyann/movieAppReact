@@ -1,17 +1,25 @@
-$mainBlue: #242628;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+$mainBlue: #1f1f1f;
+$red: #e3131b;
 
 *, body{
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
+  ::-webkit-scrollbar{
+    background-color: $mainBlue;
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: $red;
+  }
 }
 body{
-  background: linear-gradient(45deg, rgba(60,60,60,0.7) 0%, rgba(0,0,0,1) 100%), url("../images/login-bg.jpg") no-repeat center;
-  background-size: cover;
+  background: linear-gradient(45deg, rgb(22, 22, 22) 0%, rgba(0,0,0,1) 100%);
 }
 
 .container{
-  max-width: 1440px;
+  max-width: 1200px;
   width: 90%;
   margin: 0 auto;
   position: relative;
@@ -23,30 +31,368 @@ body{
   justify-content: center;
 }
 
-.login{
+.back100vh{
+  height: 100vh;
+  text-align: center;
+  padding: 40px 0;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.8) 0%, rgba(0,0,0,0.8) 100%), url("../images/login-bg.jpg") no-repeat center;
+  box-sizing: border-box;
+  background-size: cover;
+  gap: 20px;
+}
+
+@keyframes zoom {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(0.7);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+.btn{
+  padding: 9px 17px;
+  background-color: $red;
+  border-radius: 30px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.loader{
+  height: 100vh;
+  background: $mainBlue;
+  .sk-spinner{
+    color: $red;
+    width: 100px;
+    height: 100px;
+    animation: none;
+  }
+}
+
+.modal{
+  position: fixed;
+  margin: 0 auto;
+  top: 30px;
+  left: 0;
+  right: 0;
+  background: #000;
+  color: #fff;
+  width: 250px;
+  border: 1px solid $red;
+  padding: 20px;
+  text-align: end;
+  z-index: 10;
+  border-radius: 10px;
+  transition: 0.3s;
+  transform: translateY(-140px);
+  &.active{
+    transform: translateY(0);
+  }
+  p{
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  a{
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  .btn{
+    padding: 6px 17px;
+  }
+}
+
+.error{
+  flex-direction: column;
+  img{
+    width: 300px;
+    position: absolute;
+    top: 30px;
+  }
+  h1{
+    color: $red;
+    font-size: 70px;
+    font-weight: 900;
+  }
+}
+
+.landing{
+  &__header{
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.6) 0%, rgba(0,0,0,1) 100%), url("../images/login-bg.jpg") no-repeat center;
+    background-size: cover;
+    height: 100vh;
+    padding-top: 30px;
+    box-sizing: border-box;
+    .container{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    &__top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      img{
+        width: 250px;
+      }
+      a{
+        &:first-child{
+          margin-right: 15px;
+          background-color: $mainBlue;
+        }
+      }
+    }
+    &__main{
+      height: 100%;
+      flex-direction: column;
+      color: #fff;
+      & > *{
+        transform: translateY(-40px);
+      }
+      h1{
+        font-size: 80px;
+        font-weight: 900;
+        letter-spacing: 1px;
+      }
+      p{
+        font-size: 18px;
+      }
+
+      svg{
+        width: 50px;
+        height: 50px;
+        margin-top: 20px;
+        animation: fade 2s 0s ease-in-out infinite;
+      }
+      @keyframes fade {
+        0%{
+          opacity: 1;
+        }
+        50%{
+          opacity: 0.6;
+        }
+        100%{
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &__section{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background: rgba(0,0,0, 1);
+    box-sizing: border-box;
+    padding: 30px;
+    border-radius: 20px;
+    justify-content: space-around;
+    margin: 40px 0;
+    &:first-child{
+      margin-top: 60px;
+    }
+    h1{
+      font-size: 50px;
+    }
+    p{
+      font-size: 20px;
+      line-height: 25px;
+    }
+    svg{
+      width: 150px;
+      height: 150px;
+      transform: rotate(15deg);
+    }
+  }
+  &__opinion{
+    margin-top: 70px;
+    &__top{
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+    }
+    &__add{
+      display: flex;
+      align-items: start;
+      gap: 30px;
+      .btn{
+        width: 35px;
+        height: 35px;
+        padding: 0;
+        font-size: 25px;
+      }
+      & > div{
+        display: flex;
+        flex-direction: column;
+        width: 350px;
+        &:first-child{
+          width: 150px;
+        }
+        span{
+          color: $red;
+          font-size: 12px;
+          margin-left: 10px;
+          margin-top: 3px;
+        }
+      }
+      input{
+        border: 1px solid #000;
+        height: 35px;
+        border-radius: 20px;
+        padding: 0 10px;
+        background: $mainBlue;
+        outline: none;
+        transition: 0.3s;
+        color: #fff;
+        width: 100%;
+        &:focus{
+          border-color: $red;
+        }
+      }
+    }
+    h1{
+      color: #fff;
+      margin-bottom: 30px;
+    }
+    .alice-carousel{
+      &__dots-item:not(.__custom):hover, .alice-carousel__dots-item:not(.__custom).__active{
+        background: $red;
+      }
+      &__dots-item:not(.__custom){
+        background: #fff;
+      }
+      &__prev-btn-item, &__next-btn-item{
+        color: $red;
+      }
+    }
+    &__item{
+      width: 250px;
+      height: 150px;
+      background: #000000;
+      padding: 15px;
+      border-radius: 15px;
+      position: relative;
+      .like{
+        color: #fff;
+        font-size: 20px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        &.active{
+          animation: zoom 300ms 0s forwards;
+          color: $red;
+        }
+
+        span{
+          font-size: 14px;
+        }
+      }
+      h3{
+        color: $red;
+      }
+      p{
+        color: #fff;
+        margin-top: 10px;
+        line-height: 23px;
+      }
+    }
+  }
+  &__footer{
+    background: #000;
+    border-top: 1px solid $red;
+    padding: 60px 0;
+    border-radius: 20px;
+    margin-top: 50px;
+    .container{
+      gap: 100px;
+    }
+    img{
+      width: 400px;
+    }
+    &__list{
+      display: flex;
+      flex-direction: column;
+      font-size: 18px;
+      gap: 20px;
+      a{
+        color: #fff;
+        text-decoration: none;
+        transition: 0.3s;
+        &:hover{
+          color: $red;
+        }
+      }
+    }
+  }
+  .start-btn{
+    background: $red;
+    color: #000;
+    padding: 15px 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    margin: 20px auto;
+    display: block;
+    width: fit-content;
+    border: none;
+    cursor: pointer;
+    i{
+      transform: rotate(-35deg);
+    }
+    &:hover{
+      background: $mainBlue;
+      color: $red;
+    }
+  }
+}
+
+.login, .reg{
   height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background: linear-gradient(45deg, rgba(60,60,60,0.2) 0%, rgba(0,0,0,0.4) 100%), url("../images/login-bg.jpg") no-repeat center;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.6) 0%, rgba(0,0,0,0.8) 100%), url("../images/login-bg.jpg") no-repeat center;
   background-size: cover;
+  .err{
+    font-size: 12px;
+    color: $red;
+    margin-top: -5px;
+  }
   img{
-    width: 100px;
+    width: 200px;
   }
   form{
-    background: rgba(122, 122, 122, 0.3);
+    background: rgba(40, 40, 40, 0.3);
     backdrop-filter: blur(3px);
     width: 400px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 30px;
-    border-radius: 5px;
+    padding: 20px 30px 30px;
+    border-radius: 15px;
     gap: 10px;
     color: #fff;
     margin-bottom: 60px;
+    .sk-spinner{
+      color: $red;
+      text-align: center;
+      animation: none;
+    }
+    h2{
+      margin-bottom: 5px;
+    }
     input{
-      padding: 13px 10px;
+      padding: 12px 10px;
       border-radius: 5px;
       border: none;
       background: #eee;
@@ -61,18 +407,16 @@ body{
     }
     .btn{
       text-transform: uppercase;
-      background-color: #000;
-      border: none;
-      padding: 10px 0;
-      width: 100px;
-      align-self: center;
+      align-self: end;
       border-radius: 20px;
       color: #fff;
       font-weight: 700;
       letter-spacing: 1px;
-      cursor: pointer;
+      min-width: 100px;
+      opacity: 0.7;
+      margin-top: 10px;
       &:hover{
-        background: #1c1c1c;
+        opacity: 1;
       }
     }
     p{
@@ -83,41 +427,103 @@ body{
 }
 
 .movie{
-  padding: 40px 0;
+  padding: 80px 0;
   height: 100%;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.9) 0%, rgba(0,0,0,0.9) 100%), url("../images/login-bg.jpg") no-repeat center;
+  background-size: cover;
   h1{
     text-align: center;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin-top: 50px;
   }
-  .create{
-    position: absolute;
+  &__top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+    position: fixed;
+    width: 90%;
+    max-width: 1200px;
     top: 20px;
-    right: 20px;
-    border: none;
-    width: 100px;
-    padding: 10px 0;
-    border-radius: 6px;
-    background: #fff;
-    font-size: 13px;
-    text-decoration: none;
-    color: #000;
-    text-align: center;
+    z-index: 5;
+    img{
+      width: 200px;
+    }
+    a{
+      background: $red;
+      padding: 7px 15px;
+      color: #000;
+      text-decoration: none;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      i{
+        font-size: 14px;
+        margin-top: 3px;
+      }
+      &:nth-child(2){
+        margin: 0 15px;
+      }
+    }
+    .user{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
   }
   &__section{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
     padding: 30px 0;
     border-top: 3px solid #fff;
-    margin-top: 30px;
+    margin-top: 40px;
+    &__items{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    ul{
+      display: flex;
+      color: #fff;
+      list-style: none;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+      li{
+        cursor: pointer;
+        a{
+          background: #252525;
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: 0.3s;
+        }
+        //font-size: 25px;
+        &.selected{
+          a{
+            background: $red;
+            color: #000;
+            font-weight: 700;
+          }
+        }
+      }
+    }
     &__item{
       width: calc(100% / 5 - 25px);
       min-width: 200px;
-      background: #fff;
-      padding: 10px;
+      //background: #fff;
+      padding: 5px 10px 10px;
       box-sizing: border-box;
       border-radius: 10px;
       display: flex;
@@ -126,33 +532,92 @@ body{
       align-items: center;
       cursor: pointer;
       transition: 0.3s;
+      position: relative;
       &:hover{
-        background: #cacaca;
+        background: $mainBlue;
+      }
+      .likes{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: absolute;
+        top: -10px;
+        right: 20px;
+        color: #fff;
+        p{
+          font-size: 14px;
+          line-height: 0;
+        }
       }
       p{
         text-transform: capitalize;
         text-align: center;
-        font-size: 20px;
+        font-size: 17px;
         font-weight: 700;
         margin: 7px 0;
         height: 50px;
         display: flex;
         align-items: center;
+        color: #fff;
       }
       b{
         display: inline-block;
         background: #1c1c1c;
         color: #fff;
         border-radius: 20px;
-        padding: 3px 6px;
+        padding: 3px 14px;
         margin-bottom: 5px;
+      }
+      span{
+        color: #fff;
+      }
+      &__img{
+        width: 200px;
+        height: 300px;
+        overflow: hidden;
+        border: 2px solid #fff;
+        border-radius: 10px;
+        img{
+          width: calc(100% + 10px);
+        }
+      }
+    }
+  }
+  &__randomMovies{
+    color: #fff;
+    h2{
+      margin-bottom: 10px;
+    }
+    &__items{
+      display: flex;
+      gap: 20px;
+      background: #000;
+      padding: 5px 10px 15px;
+      border-radius: 10px;
+      overflow-x: scroll;
+      &::-webkit-scrollbar{
+        height: 4px;
+      }
+    }
+    &__item{
+      min-width: 150px;
+      position: relative;
+      cursor: pointer;
+      .likes{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        p{
+          font-size: 13px;
+          line-height: 0;
+        }
       }
       &__img{
         width: 100%;
-        height: 320px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
+        height: 250px;
         img{
           width: 100%;
         }
@@ -161,13 +626,66 @@ body{
   }
 }
 
+.movies_settings{
+  a{
+    width: 150px;
+    height: 150px;
+    display: inline-flex;
+    border-radius: 100px;
+    border: 2px solid $red;
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover{
+      border-color: $mainBlue;
+      span{
+        background: $mainBlue;
+      }
+    }
+    span{
+      width: 90%;
+      height: 90%;
+      background: $red;
+      border-radius: 100px;
+      display: inline-flex;
+      text-align: center;
+      color: #fff;
+      flex-direction: column;
+      gap: 5px;
+      transition: 0.3s;
+      i{
+        font-size: 40px;
+      }
+    }
+  }
+}
+
 .movie_details{
   padding: 40px 0;
   height: 100%;
+  .container{
+    position: relative;
+  }
   h1{
     text-align: center;
     color: #fff;
   }
+  &__top{
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    a{
+      background: #000;
+      width: 45px;
+      height: 45px;
+      position: absolute;
+      color: #fff;
+      font-size: 25px;
+      text-decoration: none;
+      border-radius: 30px;
+      left: 0;
+    }
+  }
+
   &__item{
     display: flex;
     width: 70%;
@@ -177,6 +695,7 @@ body{
     border-radius: 20px;
     gap: 20px;
     color: #fff;
+    position: relative;
     img{
       width: 250px;
       border-radius: 10px;
@@ -199,6 +718,54 @@ body{
     p{
       line-height: 23px;
       margin-top: 20px;
+    }
+    .likes{
+      color: #fff;
+      font-size: 20px;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      &.active{
+        animation: zoom 300ms 0s forwards;
+        color: $red;
+      }
+      i{
+        font-size: 30px;
+      }
+      p{
+        font-size: 20px;
+        margin: 0;
+      }
+    }
+  }
+  &__video{
+    width: 70%;
+    margin: 20px auto;
+    background: #1c1c1c;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    & > div{
+      i{
+        color: #fff;
+        font-size: 100px;
+        position: absolute;
+      }
+    }
+    video{
+      width: 100%;
+      align-self: center;
+      cursor: pointer;
+      max-height: 450px;
+      object-fit: cover;
+      object-position: top;
     }
   }
   &__comment{
@@ -241,20 +808,27 @@ body{
         }
       }
     }
-    p{
-      background: #cacaca;
+    .comment{
       color: #000;
-      padding: 10px;
-      border-radius: 20px;
       margin-top: 20px;
+      span{
+        background: #cacaca;
+        color: #000;
+        padding: 2px 15px;
+        border-radius: 10px 10px 0 0;
+        display: inline-block;
+        border-bottom: 1px solid #eee;
+      }
+      p{
+        background: #cacaca;
+        padding: 10px;
+        border-radius: 0 10px 10px;
+      }
     }
   }
 }
 
-.create_movie{
-  height: 100vh;
-  text-align: center;
-  padding: 40px 0;
+.create_movie, .edit_movie{
   h1{
     color: #fff;
   }
@@ -268,6 +842,31 @@ body{
     padding: 20px;
     border-radius: 20px;
     gap: 15px;
+    select{
+      color: #000;
+      padding: 10px;
+      border-radius: 10px;
+      opacity: 0.7;
+      transition: 0.3s;
+      &:focus{
+        opacity: 1;
+      }
+      option{
+        background: #cacaca;
+        color: #000;
+      }
+    }
+    .flax-center{
+      gap: 10px;
+        input{
+          width: 100%;
+        }
+    }
+    .sk-spinner{
+      color: $red;
+      text-align: center;
+      animation: none;
+    }
     input, textarea{
       padding: 10px;
       border-radius: 10px;

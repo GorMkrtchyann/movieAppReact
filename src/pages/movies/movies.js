@@ -1,40 +1,62 @@
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {PaginatedItems} from "./paginatedItems";
+import {RandomMovies} from "./randomMovies";
+import {Images} from "../../assats/images/images";
+import {useContext, useEffect} from "react";
+import {AllContext} from "../../utils/context";
+import {Button} from "../../components/button";
 import {useNavigate} from "react-router";
-import PropTypes from "prop-types";
-import {useDispatch, useSelector} from "react-redux";
 
-export const Movies = ({moviesList}) => {
+export const Movies = () => {
+    const movieList = useSelector(store => store.moviesReducer.moviesList)
     const navigate = useNavigate()
-    const movieList = useSelector((state) => state.moviesReducer.moviesList)
+
+    const {userInfo, setUserInfo} = useContext(AllContext)
+
+    useEffect(() => {
+        userInfo.userName ? localStorage.setItem("_login", JSON.stringify(userInfo)) : navigate("/")
+    }, [])
+
+    const logOut = () => {
+        setUserInfo({})
+        localStorage.setItem("_login", "{}")
+        navigate("/")
+    }
 
     return(
-        <div className={"movie container"}>
-            <h1>Movies</h1>
-            <Link to={"/create-movie"} className={"create"}>Create Movie</Link>
-            <div className={"movie__section"}>
-                {
-                    movieList?.map(el => {
-                        return(
-                            <div
-                                key={el.id}
-                                className={"movie__section__item"}
-                                onClick={() => navigate(`/movies-details/${el.id}`)}
-                            >
-                                <div className={"movie__section__item__img"}>
-                                    <img src={el.img} alt="k"/>
+        <div className={"movie"}>
+            <div className="container">
+                <div className={"movie__top"}>
+                    <img src={Images.logo} alt=""/>
+                    <div className={"flax-center"}>
+                        {
+                            userInfo.userName === "admin" ?
+                                <div style={{gap: 15}} className={"flax-center"}>
+                                    <Link to={"/movies-settings"}>Movie Settings</Link>
+                                    <Button
+                                        content={<i className="fa-solid fa-arrow-right-from-bracket"/>}
+                                        func={logOut}
+                                    />
                                 </div>
-                                <p>{el.name}</p>
-                                <b>{el.genre}</b>
-                                <span>{el.date}</span>
-                            </div>
-                        )
-                    })
-                }
+                                :
+                                <div className={"user"}>
+                                    <p>{userInfo.userName}</p>
+                                    <Button
+                                        content={<i className="fa-solid fa-arrow-right-from-bracket"/>}
+                                        func={logOut}
+                                    />
+                                </div>
+                        }
+                        <Link to={"/"}><i className="fa-solid fa-house"/> Home</Link>
+                    </div>
+                </div>
+                <h1>Movies</h1>
+                <RandomMovies list={[...movieList]}/>
+                <div className={"movie__section"}>
+                    <PaginatedItems itemsPerPage={10} items={movieList} />,
+                </div>
             </div>
         </div>
     )
-}
-
-Movies.propTypes = {
-    moviesList: PropTypes.array
 }

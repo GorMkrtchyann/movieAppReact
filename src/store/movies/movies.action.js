@@ -1,8 +1,5 @@
+import {ADD_COMMENT_MOVIE, DELETE_MOVIES} from "./movies.types";
 
-
-export const DELETE_MOVIES = "DELETE_MOVIES"
-export const ADD_COMMENT = "ADD_COMMENT"
-export const ADD_MOVIE = "ADD_MOVIE"
 
 export const deleteMovies = () => {
     return{
@@ -12,14 +9,14 @@ export const deleteMovies = () => {
 
 export const addComment = ( newList ) => {
     return{
-        type: ADD_COMMENT,
+        type: ADD_COMMENT_MOVIE,
         payload: newList
     }
 }
 
 export const addMovie = ( newList ) => {
     return{
-        type: ADD_COMMENT,
+        type: ADD_COMMENT_MOVIE,
         payload: newList
     }
 }
